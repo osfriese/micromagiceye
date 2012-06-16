@@ -32,8 +32,8 @@ int main() {
 
 
 	String source =
-//			"/home/osfriese/Dokumente/Bachelorarbeit/Videos/16.10.11/2GelbeBojen.avi";
-			"/home/osfriese/Dokumente/Bachelorarbeit/Videos/11.06.2012/1/SUNP0002.avi";
+			"/home/osfriese/Dokumente/Bachelorarbeit/Videos/16.10.11/2GelbeBojen.avi";
+//			"/home/osfriese/Dokumente/Bachelorarbeit/Videos/11.06.2012/1/SUNP0002.avi";
 	windowName = source;
 
 	ObjektTracker tracky(windowName, 5); // Neues Tracking Objekt mit 5 Frames
@@ -56,7 +56,7 @@ int main() {
 		tracky.addFrame(frame);
 		waitKey(1000 / 30); // 30 FPs
 		tracky.showFrame();
-		analyseMe.analyse();
+//		analyseMe.analyse();
 	}
 
 	destroyWindow(windowName);

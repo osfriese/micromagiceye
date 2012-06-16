@@ -14,35 +14,36 @@ using namespace cv;
 
 class DObject {
 public:
-	enum KindOfObject{
-		RedBuoy,
-		YellowBuoy,
-		Water
+	enum KindOfObject {
+		RedBuoy, YellowBuoy, Water
 	};
 
 	DObject();
 	DObject(KindOfObject color);
 	virtual ~DObject();
-    Scalar getBaseColor();
-    Scalar getHsvRangeMin();
-    Scalar getHsvRangeMax();
-    String getString();
-    float getAngle();
-    Point2f getCenter();
-    RotatedRect getRect();
-    Size2f getSize();
-    DObject clone();
+	Scalar getBaseColor();
+	Scalar getHsvRangeMin();
+	Scalar getHsvRangeMax();
+	String getString();
+	float getAngle();
+	Point2f getCenter();
+	RotatedRect getRect();
+	Size2f getSize();
+	DObject clone();
 
-    void setBaseColor(KindOfObject obj);
-    void setHsvRange(KindOfObject obj);
-    void setAngle(float angle);
-    void setCenter(Point2f center);
-    void setRect(RotatedRect rect);
-    void setSize(Size2f size);
+	void setBaseColor(KindOfObject obj);
+	void setHsvRange(KindOfObject obj);
+	void setAngle(float angle);
+	void setCenter(Point2f center);
+	void setRect(RotatedRect rect);
+	void setSize(Size2f size);
 
+	// Ueberladung für FileStorage
+	void write(FileStorage& fs) const;
+	void read(const FileNode& node);
 
 private:
-    KindOfObject object;
+	KindOfObject object;
 	Scalar hsvRangeMin;
 	Scalar hsvRangeMax;
 	Scalar baseColor;

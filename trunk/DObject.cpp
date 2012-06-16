@@ -124,3 +124,15 @@ void DObject::setSize(Size2f size) {
 	this->size = size;
 }
 
+void DObject::write(FileStorage& fs) const {
+	fs << "{";
+	fs << "KindOfObject" << object;
+	fs << "Center" << center;
+	fs << "Angle" << angle;
+	fs << "Size" << size;
+//	fs << "Rect" << rect;
+	fs << "}";
+}
+
+void DObject::read(const FileNode& node) {
+}
