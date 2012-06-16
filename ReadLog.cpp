@@ -14,7 +14,7 @@ ReadLog::ReadLog(string datei) {
 ReadLog::~ReadLog() {
 }
 
-ifstream& operator >>(ifstream& in, LOGDATA& d) {
+ifstream& operator >>(ifstream& in, Log& d) {
 	in >> d.sd >> d.millisec >> d.lat >> d.lon >> d.heading >> d.speed
 			>> d.windDirection >> d.windSpeed >> d.accX >> d.accY >> d.accZ
 			>> d.magRawX >> d.magRawY >> d.magRawZ >> d.gyroY >> d.gyroP
@@ -41,9 +41,14 @@ void ReadLog::read(string datei) {
 		throw(string) errorMsg;
 	}
 
-	LOGDATA log;
+	Log log;
 	while (file >> log) {
 		logdata.push_back(log);
+	}
+
+	long long millisec = logdata[0].millisec;
+	for (unsigned int var = 0; var < logdata.size(); ++var) {
+		logdata[var].milli = (int) logdata[var].millisec - millisec;
 	}
 
 	file.close();

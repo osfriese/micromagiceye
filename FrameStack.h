@@ -20,19 +20,20 @@ public:
 
 	Frame& getFrame(unsigned int i);
 	Frame& getActualFrame();
+	Frame getActualFrame() const;
 	Frame& getLastFrame();
 	Frame& getNextFrame();
     int size();
     bool eos();
     bool ready();
 
-    void addFrame(Mat frame);
-	void addFrame(Frame frame);
+    void addFrame(Mat frame, int count);
+	void addFrame(Frame frame, int count);
 	void moveFrames();
 
 private:
 	bool endOfStack;
-	int actualFrame;
+	unsigned int actualFrame;
 	std::vector<Frame> frames;
 	unsigned int numberOfKeepedFrames;
 };

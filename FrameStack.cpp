@@ -30,6 +30,15 @@ Frame& FrameStack::getActualFrame() {
 	return getFrame(actualFrame);
 }
 
+Frame FrameStack::getActualFrame() const {
+	if (actualFrame <= frames.size()) {
+		Frame temp = frames[actualFrame];
+		return temp;
+	} else {
+		throw "Nicht genug Frames!";
+	}
+}
+
 Frame& FrameStack::getLastFrame() {
 	return getFrame(actualFrame + 1);
 }
@@ -38,15 +47,16 @@ Frame& FrameStack::getNextFrame() {
 	return getFrame(actualFrame - 1);
 }
 
-void FrameStack::addFrame(Mat frame) {
-	Frame f(frame);
+void FrameStack::addFrame(Mat frame, int count) {
+	Frame f(frame, count);
 	frames.insert(frames.begin(), f);
 	actualFrame++;
 	endOfStack = false;
 }
 
-void FrameStack::addFrame(Frame frame) {
+void FrameStack::addFrame(Frame frame, int count) {
 	Frame f = frame;
+	frame.setID(count);
 	frames.insert(frames.begin(), f);
 	f.getImage();
 	actualFrame++;
@@ -58,11 +68,10 @@ bool FrameStack::eos() {
 }
 
 bool FrameStack::ready() {
-	return (actualFrame > 0 )? true : false;
+	return (actualFrame > 0) ? true : false;
 }
 
-int FrameStack::size()
-{
+int FrameStack::size() {
 	return frames.size();
 }
 

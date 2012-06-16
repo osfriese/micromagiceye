@@ -13,29 +13,18 @@
 #include <vector>
 
 #include <ctime>
+#include "Log.h"
 
 using namespace std;
-
-struct LOGDATA {
-	char sd[2];
-	long long millisec;
-	double lat, lon, heading, speed, windDirection, windSpeed, accX, accY, accZ,
-			magRawX, magRawY, magRawZ, gyroY, gyroP, gyroR, kompass, stampfen,
-			kraengung, battery;
-	char cd[2];
-	double rudder, main, jib;
-	bool blink;
-};
 
 class ReadLog {
 public:
 	ReadLog(string datei);
 	virtual ~ReadLog();
-	friend ifstream& operator>>(ifstream& in, LOGDATA& d);
+	friend ifstream& operator>>(ifstream& in, Log& d);
 	friend ifstream& operator>>(ifstream& in, double& d);
 private:
-	vector<LOGDATA> logdata;
-
+	vector<Log> logdata;
 	void read(string datei);
 };
 
