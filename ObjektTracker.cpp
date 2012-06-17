@@ -9,11 +9,12 @@
 
 ObjektTracker::ObjektTracker(String wN, int keep) {
 	this->windowName = wN;
+    namedWindow(wN,CV_WINDOW_FREERATIO);
 	frameStack = new FrameStack(keep);
 	string save = wN;
 	frameCount = 0;
-	fileToSave = FileStorage(save.append(".xml"), FileStorage::WRITE);
-	fileToSave << "VideoFile" << wN;
+//	fileToSave = FileStorage(save.append(".xml"), FileStorage::WRITE);
+//	fileToSave << "VideoFile" << wN;
 }
 
 ObjektTracker::~ObjektTracker() {
@@ -37,10 +38,10 @@ void ObjektTracker::addFrame(Frame frame) {
 
 void ObjektTracker::showFrame() {
 	if (frameStack->size() > 2) {
-//		frameStack->getActualFrame().showFlow(frameStack->getLastFrame());
+//        frameStack->getActualFrame().showFlow(frameStack->getLastFrame());
 		imshow(windowName, getImage());
 
-		fileToSave << "Frame" << frameStack->getActualFrame();
+//		fileToSave << "Frame" << frameStack->getActualFrame();
 		frameStack->moveFrames();
 	}
 }
