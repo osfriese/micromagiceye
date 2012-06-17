@@ -46,6 +46,8 @@ private slots:
 
     void on_actionStackLive_triggered();
 
+    void on_actionLiveKalibrieren_triggered();
+
 private:
     Ui::MicroMagicEye *ui;
     string logdatei;

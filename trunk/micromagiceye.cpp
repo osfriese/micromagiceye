@@ -59,8 +59,12 @@ void MicroMagicEye::on_actionKalibrieren_triggered()
 {
     QString calibration = QFileDialog::getOpenFileName(this,
                                                        tr("Kalibrierungsvideo öffnen"), "/home/osfriese/Dokumente/Bachelorarbeit/Videos", tr("Video Dateien (*.avi)"));
-     if(calibration != "")
-        Calibration c(calibration.toStdString());
+     if(calibration != ""){
+         QStringList items;
+         items << "CHESSBOARD" << "CIRCLES GRID" << "ASYMMETRIC CIRCLES GRID";
+         QString method = QInputDialog::getItem(this, "Kalibrierungsmethode","Kalibrierungsmethode: ",items);
+         Calibration c(calibration.toStdString(), method.toStdString());
+     }
 }
 
 void MicroMagicEye::on_actionStackLaden_triggered()
@@ -133,4 +137,13 @@ void MicroMagicEye::on_actionStackLive_triggered()
     }
 
     destroyWindow(windowName);
+}
+
+void MicroMagicEye::on_actionLiveKalibrieren_triggered()
+{
+    QString calibration = QFileDialog::getSaveFileName(this,tr("Speichern unter..."), "/home/osfriese/", tr("XML Datei (*.xml)"));
+    QStringList items;
+    items << "CHESSBOARD" << "CIRCLES GRID" << "ASYMMETRIC CIRCLES GRID";
+    QString method = QInputDialog::getItem(this, "Kalibrierungsmethode","Kalibrierungsmethode: ",items);
+    Calibration c(calibration.toStdString(),method.toStdString(),true);
 }

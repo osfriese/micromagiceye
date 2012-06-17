@@ -93,6 +93,7 @@
      <string>Kamera</string>
     </property>
     <addaction name="actionKalibrieren"/>
+    <addaction name="actionLiveKalibrieren"/>
    </widget>
    <addaction name="menuTest"/>
    <addaction name="menuLog"/>
@@ -146,7 +147,7 @@
   </action>
   <action name="actionKalibrieren">
    <property name="text">
-    <string>Kalibrieren</string>
+    <string>Video Kalibrieren</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+K</string>
@@ -165,6 +166,11 @@
   <action name="actionStackAnalyse">
    <property name="text">
     <string>Analyse starten</string>
+   </property>
+  </action>
+  <action name="actionLiveKalibrieren">
+   <property name="text">
+    <string>Live Kalibrieren</string>
    </property>
   </action>
  </widget>

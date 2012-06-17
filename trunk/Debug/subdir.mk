@@ -15,7 +15,9 @@ CPP_SRCS += \
 ../ObjektTracker.cpp \
 ../OpticalFlowDetector.cpp \
 ../ReadLog.cpp \
-../main.cpp 
+../main.cpp \
+../main2.cpp \
+../micromagiceye.cpp 
 
 OBJS += \
 ./Calibration.o \
@@ -29,7 +31,9 @@ OBJS += \
 ./ObjektTracker.o \
 ./OpticalFlowDetector.o \
 ./ReadLog.o \
-./main.o 
+./main.o \
+./main2.o \
+./micromagiceye.o 
 
 CPP_DEPS += \
 ./Calibration.d \
@@ -43,7 +47,9 @@ CPP_DEPS += \
 ./ObjektTracker.d \
 ./OpticalFlowDetector.d \
 ./ReadLog.d \
-./main.d 
+./main.d \
+./main2.d \
+./micromagiceye.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
