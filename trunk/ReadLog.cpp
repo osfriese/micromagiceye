@@ -14,6 +14,10 @@ ReadLog::ReadLog(string datei) {
 ReadLog::~ReadLog() {
 }
 
+void ReadLog::connectWithFrames(FrameStack *stack, int versatz)
+{
+}
+
 ifstream& operator >>(ifstream& in, Log& d) {
 	in >> d.sd >> d.millisec >> d.lat >> d.lon >> d.heading >> d.speed
 			>> d.windDirection >> d.windSpeed >> d.accX >> d.accY >> d.accZ
@@ -32,24 +36,34 @@ ifstream& operator >>(ifstream& in, double& d) {
 }
 
 void ReadLog::read(string datei) {
-	ifstream file(datei.c_str());
+    try {
+        ifstream file(datei.c_str());
 
-	// Exception werfen bei Fehler
-	if (!file.is_open()) {
-		string errorMsg = datei;
-		errorMsg += " konnte nicht geoeffnet werden!\n";
-		throw(string) errorMsg;
-	}
+        // Exception werfen bei Fehler
+        if (!file.is_open()) {
+            string errorMsg = datei;
+            errorMsg += " konnte nicht geoeffnet werden!\n";
+            throw(string) errorMsg;
+        }
 
-	Log log;
-	while (file >> log) {
-		logdata.push_back(log);
-	}
+        Log log;
+        try {
+            while (file >> log) {
+                logdata.push_back(log);
+            }
+        } catch (...) {
+            throw "Falsches Dateiformat";
+        }
 
-	long long millisec = logdata[0].millisec;
-	for (unsigned int var = 0; var < logdata.size(); ++var) {
-		logdata[var].milli = (int) logdata[var].millisec - millisec;
-	}
 
-	file.close();
+        long long millisec = logdata[0].millisec;
+        for (unsigned int var = 0; var < logdata.size(); ++var) {
+            logdata[var].milli = (int) logdata[var].millisec - millisec;
+        }
+
+        file.close();
+    } catch (...) {
+        cout << "Logdatei hat falsches Dateiformat" << endl;
+    }
+
 }

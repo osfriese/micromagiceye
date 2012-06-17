@@ -8,11 +8,7 @@
 #include "FrameAnalyser.h"
 
 FrameAnalyser::~FrameAnalyser() {
-	// TODO Auto-generated destructor stub
-}
-
-FrameAnalyser::FrameAnalyser(FrameStack * stack) {
-
+    // TODO Auto-generated destructor stub
 }
 
 FrameAnalyser::FrameAnalyser(String windowName, FrameStack * stack) {
@@ -25,9 +21,14 @@ FrameAnalyser::FrameAnalyser(String windowName, FrameStack * stack) {
 			<< "8: Hindernis falsch" << endl;
 }
 
-void FrameAnalyser::analyse() {
-	Frame temp = myStack->getActualFrame();
-	show(temp);
+void FrameAnalyser::analyse()
+{
+    Frame temp = myStack->getActualFrame();
+    analyse(temp);
+}
+
+void FrameAnalyser::analyse(Frame frame) {
+    show(frame);
 
 	static int n = 0;
 	char filename[200];
@@ -44,11 +45,11 @@ void FrameAnalyser::analyse() {
 			switch ((char) c) {
 			case 's':
 				sprintf(filename, "img/Original%.3d.jpg", n);
-				imwrite(filename, temp.getFrame());
+                imwrite(filename, frame.getFrame());
 				sprintf(filename, "img/Image%.3d.jpg", n);
-				imwrite(filename, temp.getImage());
+                imwrite(filename, frame.getImage());
 				sprintf(filename, "img/Canny%.3d.jpg", n);
-				imwrite(filename, temp.getCanny());
+                imwrite(filename, frame.getCanny());
 				cout << "Saved " << endl;
 				n++;
 				break;
@@ -60,7 +61,15 @@ void FrameAnalyser::analyse() {
 		ausgabe << d[i] << "\t";
 	}
 //	cout << endl;
-	ausgabe << endl;
+    ausgabe << endl;
+}
+
+void FrameAnalyser::analyseStack()
+{
+    for (int var = 0; var < myStack->size(); var++) {
+        analyse(myStack->getFrame(var));
+    }
+
 }
 
 void FrameAnalyser::show(Frame frame) {

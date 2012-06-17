@@ -19,10 +19,11 @@ using namespace std;
 
 class FrameAnalyser {
 public:
-	FrameAnalyser(FrameStack * stack);
 	FrameAnalyser(String windowName, FrameStack * stack);
 	virtual ~FrameAnalyser();
 	void analyse();
+    void analyse(Frame frame);
+    void analyseStack();
 private:
 	fstream ausgabe;
 	FrameStack * myStack;
