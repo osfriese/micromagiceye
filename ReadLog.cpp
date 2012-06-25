@@ -16,6 +16,23 @@ ReadLog::~ReadLog() {
 
 void ReadLog::connectWithFrames(FrameStack *stack, int versatz)
 {
+    int size = stack->size();
+    int logIterator = 0;
+
+    cout << "Logaten werden zugeordnen";
+
+    while((logdata[logIterator].milli - versatz) < 0)
+        logIterator++;
+
+    for (int stackIterator = 0; stackIterator < size; stackIterator++) {
+        if((logdata[logIterator].milli - versatz) > stack->getFrame(stackIterator).getID())
+            logIterator++;
+        stack->getFrame(stackIterator).setLog(logdata[logIterator]);
+        cout << ".";
+    }
+    cout << endl << "Erfolgreich" << endl;
+
+
 }
 
 ifstream& operator >>(ifstream& in, Log& d) {

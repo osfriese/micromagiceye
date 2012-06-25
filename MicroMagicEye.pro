@@ -24,7 +24,9 @@ SOURCES += main.cpp\
     Frame.cpp \
     DObject.cpp \
     ColoredObjectDetector.cpp \
-    Calibration.cpp
+    Calibration.cpp \
+    LEDdetector.cpp \
+    Horizont.cpp
 
 HEADERS  += micromagiceye.h \
     ReadLog.h \
@@ -37,7 +39,9 @@ HEADERS  += micromagiceye.h \
     Frame.h \
     DObject.h \
     ColoredObjectDetector.h \
-    Calibration.h
+    Calibration.h \
+    LEDdetector.h \
+    Horizont.h
 
 FORMS    += micromagiceye.ui
 

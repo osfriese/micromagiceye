@@ -17,6 +17,9 @@ ObjektTracker::ObjektTracker(String wN, int keep) {
 //	fileToSave << "VideoFile" << wN;
 }
 
+ObjektTracker::ObjektTracker() {
+}
+
 ObjektTracker::~ObjektTracker() {
 	fileToSave.release();
 }
@@ -43,20 +46,31 @@ void ObjektTracker::showFrame() {
 
 //		fileToSave << "Frame" << frameStack->getActualFrame();
 		frameStack->moveFrames();
-	}
+    }
+}
+
+void ObjektTracker::showVideo()
+{
+    for (int i = 0; i < frameStack->size(); ++i) {
+        imshow(windowName, frameStack->getFrame(i).getImage());
+        waitKey(1000/30);
+    }
 }
 
 FrameStack * ObjektTracker::getStack() {
-	return frameStack;
+    return frameStack;
+}
+
+ObjektTracker *ObjektTracker::getPointer()
+{
+    return this;
 }
 
 Mat ObjektTracker::getFrame() {
-//	frame = frameStack->getActualFrame().getFrame();
 	return frameStack->getActualFrame().getFrame().clone();
 }
 
 Mat ObjektTracker::getImage() {
-//	image = frameStack->getActualFrame().getImage();
 	return frameStack->getActualFrame().getImage().clone();
 }
 

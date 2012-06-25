@@ -63,7 +63,8 @@ void MicroMagicEye::on_actionKalibrieren_triggered()
          QStringList items;
          items << "CHESSBOARD" << "CIRCLES GRID" << "ASYMMETRIC CIRCLES GRID";
          QString method = QInputDialog::getItem(this, "Kalibrierungsmethode","Kalibrierungsmethode: ",items);
-         Calibration c(calibration.toStdString(), method.toStdString());
+         if (method != "")
+             Calibration c(calibration.toStdString(), method.toStdString());
      }
 }
 
@@ -85,7 +86,7 @@ void MicroMagicEye::on_actionStackLaden_triggered()
         if (frame.empty())
             break;
 
-        tracky.addFrame(frame);
+        tracky.addFrame(frame,cap.get(CV_CAP_PROP_POS_MSEC));
         waitKey(1000 / 30);
         tracky.showFrame();
     }
@@ -93,6 +94,7 @@ void MicroMagicEye::on_actionStackLaden_triggered()
     destroyWindow(videofile);
 
     stack = tracky.getStack();
+    tracker  = tracky;
 }
 
 void MicroMagicEye::on_actionStackAnalyse_triggered()
@@ -103,11 +105,12 @@ void MicroMagicEye::on_actionStackAnalyse_triggered()
 
 void MicroMagicEye::on_actionLogBind_triggered()
 {
-    ReadLog r(logdatei);
-
      int versatz = QInputDialog::getInt(this,"Versatz", "Versatz in Microsekunden angeben:",0);
-//    r.connectWithFrames(stack,versatz);
-    cout << "User entered: " << versatz << endl;
+     if(versatz > 0) {
+         ReadLog r(logdatei);
+         r.connectWithFrames(stack,versatz);
+         cout << "User entered: " << versatz << endl;
+     }
 }
 
 void MicroMagicEye::on_actionStackLive_triggered()
@@ -132,8 +135,10 @@ void MicroMagicEye::on_actionStackLive_triggered()
             break;
 
         tracky.addFrame(frame);
-        waitKey(1000 / 30); // 30 FPs
+//        waitKey(1000 / 30); // 30 FPs
         tracky.showFrame();
+
+//        tracker = tracky.getPointer();
     }
 
     destroyWindow(windowName);
@@ -142,8 +147,25 @@ void MicroMagicEye::on_actionStackLive_triggered()
 void MicroMagicEye::on_actionLiveKalibrieren_triggered()
 {
     QString calibration = QFileDialog::getSaveFileName(this,tr("Speichern unter..."), "/home/osfriese/", tr("XML Datei (*.xml)"));
-    QStringList items;
-    items << "CHESSBOARD" << "CIRCLES GRID" << "ASYMMETRIC CIRCLES GRID";
-    QString method = QInputDialog::getItem(this, "Kalibrierungsmethode","Kalibrierungsmethode: ",items);
-    Calibration c(calibration.toStdString(),method.toStdString(),true);
+    if (calibration != "") {
+        QStringList items;
+        items << "CHESSBOARD" << "CIRCLES GRID" << "ASYMMETRIC CIRCLES GRID";
+        QString method = QInputDialog::getItem(this, "Kalibrierungsmethode","Kalibrierungsmethode: ",items);
+        cout << method.toStdString() << endl;
+         if (method != "")
+            Calibration c(calibration.toStdString(),method.toStdString(),true);
+    }
+}
+
+void MicroMagicEye::on_actionLED_erkennen_triggered()
+{
+    QString ledvideo = QFileDialog::getOpenFileName(this,
+                                                       tr("Video öffnen"), "/home/osfriese/Dokumente/Bachelorarbeit/Videos", tr("Video Dateien (*.avi)"));
+     if(ledvideo != "")
+         LEDDetector(ledvideo.toStdString());
+}
+
+void MicroMagicEye::on_actionStackAbspielen_triggered()
+{
+    tracker.showVideo();
 }
