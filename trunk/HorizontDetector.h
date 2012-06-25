@@ -8,8 +8,12 @@
 #ifndef HORIZONTDETECTOR_H_
 #define HORIZONTDETECTOR_H_
 
+#include <algorithm>
+
 #include "opencv2/imgproc/imgproc.hpp"
 #include "opencv2/highgui/highgui.hpp"
+
+#include "Horizont.h"
 
 using namespace cv;
 
@@ -22,6 +26,8 @@ public:
 	virtual ~HorizontDetector();
 
 	void houghMethod(Mat src, Mat &dsc, Mat& mask, vector<Point>& horizont);
+    Horizont getStableHorizont();
+
     void setHoughRho(int houghRho);
     void setHoughTeta(int houghTeta);
     void setHoughThreshold(int houghThreshold);
@@ -33,9 +39,15 @@ private:
 	int houghRho;
 	int houghTeta;
 	int houghThreshold;
+    int numberOfKeepedHorizonts;
+    int numberOfAddedHorizonts;
+
 	Mat canny;
 	Mat houghMask;
 	vector<Point> myHorizont;
+    vector<Horizont> horizontVector;
+
+    void addHorizont(Point pt1, Point pt2);
 };
 
 #endif /* HORIZONTDETECTOR_H_ */

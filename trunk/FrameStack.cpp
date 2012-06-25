@@ -76,13 +76,13 @@ int FrameStack::size() {
 }
 
 void FrameStack::moveFrames() {
-	if (actualFrame-- < 0) {
+    if (actualFrame-- < 0) {
 		actualFrame = 0;
 		endOfStack = true;
 	}
 
 	if (frames.size() > numberOfKeepedFrames && numberOfKeepedFrames != 0)
-		frames.pop_back();
+        frames.pop_back();
 
 }
 

@@ -33,6 +33,7 @@ public:
 	Mat getHorizontMask();
 	Mat getCanny();
 	Mat& getGray();
+    int getID() const;
 
 	void showFlow(Frame lastFrame);
 	void setFrame(Mat frame);

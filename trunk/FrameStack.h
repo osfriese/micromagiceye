@@ -33,7 +33,7 @@ public:
 
 private:
 	bool endOfStack;
-	unsigned int actualFrame;
+    int actualFrame;
 	std::vector<Frame> frames;
 	unsigned int numberOfKeepedFrames;
 };

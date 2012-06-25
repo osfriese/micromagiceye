@@ -119,7 +119,7 @@ bool Calibration::runCalibrationAndSave(Size imageSize, vector<vector<Point2f> >
 
     bool ok = runCalibration(imageSize, boardSize,imagePoints, rvecs, tvecs,
                              reprojErrs);
-    string suc = (ok) ? "Kalibrierung erfolgreich succeeded" : "Kalibrierung fehlgeschlagen";
+    string suc = (ok) ? "Kalibrierung erfolgreich" : "Kalibrierung fehlgeschlagen";
     cout << suc << endl;
 
     if(ok) {
@@ -162,13 +162,14 @@ bool Calibration::runCalibration(Size &imageSize, Size boardSize, vector<vector<
 void Calibration::calcBoardCornerPositions(Size boardSize,vector<Point3f> &corners)
 {
     corners.clear();
-    int squareSize = 50;
 
     if(this->method == "ASYMMETRIC_CIRCLES_GRID") {
+        int squareSize = 35;
         for( int i = 0; i < boardSize.height; i++ )
             for( int j = 0; j < boardSize.width; j++ )
                 corners.push_back(Point3f(float((2*j + i % 2)*squareSize), float(i*squareSize), 0));
     }else{
+        int squareSize = 26;
         for( int i = 0; i < boardSize.height; ++i )
             for( int j = 0; j < boardSize.width; ++j )
                 corners.push_back(Point3f(float( j*squareSize ), float( i*squareSize ), 0));

@@ -8,6 +8,7 @@
 #include "FrameStack.h"
 #include "FrameAnalyser.h"
 #include "ReadLog.h"
+#include "LEDdetector.h"
 
 #include <iostream>
 #include <QFileDialog>
@@ -48,11 +49,16 @@ private slots:
 
     void on_actionLiveKalibrieren_triggered();
 
+    void on_actionLED_erkennen_triggered();
+
+    void on_actionStackAbspielen_triggered();
+
 private:
     Ui::MicroMagicEye *ui;
     string logdatei;
     string videofile;
     FrameStack * stack;
+    ObjektTracker tracker;
 
 };
 

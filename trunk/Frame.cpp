@@ -87,7 +87,12 @@ Mat& Frame::getGray() {
 		GaussianBlur(getFrame(), gray, Size(3, 3), 0, 0, BORDER_DEFAULT);
 		cvtColor(gray, gray, CV_BGR2GRAY);
 	}
-	return gray;
+    return gray;
+}
+
+int Frame::getID() const
+{
+    return this->id;
 }
 
 void Frame::showFlow(Frame lastFrame) {
