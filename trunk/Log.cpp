@@ -8,7 +8,7 @@
 #include "Log.h"
 
 Log::Log() {
-	millisec = 0;
+    millisec = -1;
 }
 
 void Log::write(FileStorage& fs) const {
@@ -37,5 +37,10 @@ void Log::write(FileStorage& fs) const {
 	fs << "Main" << main;
 	fs << "Jib" << jib;
 	fs << "Blink" << blink;
-	fs << "}";
+    fs << "}";
+}
+
+bool Log::empty()
+{
+    return (millisec < 0)? true: false;
 }

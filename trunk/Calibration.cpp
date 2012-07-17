@@ -60,7 +60,7 @@ void Calibration::calibrate(VideoCapture cap) {
         // Punkte suchen
         vector<Point2f> points;
         if(this->method == "CHESSBOARD") {
-            boardSize = Size(6, 9);
+            boardSize = Size(7, 10);
             found = findChessboardCorners( view, boardSize, points,
                                            CV_CALIB_CB_ADAPTIVE_THRESH | CV_CALIB_CB_FAST_CHECK | CV_CALIB_CB_NORMALIZE_IMAGE);
         }else if (this->method == "CIRCLES GRID"){

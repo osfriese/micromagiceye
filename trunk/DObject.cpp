@@ -69,7 +69,12 @@ void DObject::setHsvRange(KindOfObject obj) {
 DObject DObject::clone() {
 	DObject temp(object);
 	temp.setRect(getRect());
-	return temp;
+    return temp;
+}
+
+double DObject::getDurchmesser()
+{
+    return max(getSize().height, getSize().width);
 }
 
 String DObject::getString() {
@@ -121,7 +126,12 @@ void DObject::setRect(RotatedRect rect) {
 }
 
 void DObject::setSize(Size2f size) {
-	this->size = size;
+    this->size = size;
+}
+
+double DObject::distance(DObject o)
+{
+    return 0.15 * (pow(getCenter().x - o.getCenter().x,2) + pow(getCenter().y - o.getCenter().y,2)) + abs(getDurchmesser()-o.getDurchmesser());
 }
 
 void DObject::write(FileStorage& fs) const {

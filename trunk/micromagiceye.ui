@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>762</width>
-    <height>337</height>
+    <width>784</width>
+    <height>454</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,11 +19,17 @@
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>421</width>
-      <height>141</height>
+      <width>351</width>
+      <height>371</height>
      </rect>
     </property>
-    <layout class="QFormLayout" name="formLayout">
+    <layout class="QFormLayout" name="FormelLayout">
+     <property name="sizeConstraint">
+      <enum>QLayout::SetDefaultConstraint</enum>
+     </property>
+     <property name="fieldGrowthPolicy">
+      <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
+     </property>
      <item row="0" column="0">
       <widget class="QLabel" name="label">
        <property name="text">
@@ -52,6 +58,34 @@
        </property>
       </widget>
      </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="label_3">
+       <property name="text">
+        <string>Stack:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="0">
+      <widget class="QLabel" name="label_5">
+       <property name="text">
+        <string>Log</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1">
+      <widget class="QLabel" name="lblLog">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QLabel" name="lblStack">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
     </layout>
    </widget>
   </widget>
@@ -60,14 +94,16 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>762</width>
-     <height>23</height>
+     <width>784</width>
+     <height>29</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuLog">
     <property name="title">
      <string>Log</string>
     </property>
+    <addaction name="actionLED_erkennen"/>
+    <addaction name="separator"/>
     <addaction name="actionLogLaden"/>
     <addaction name="actionLogBind"/>
    </widget>
@@ -77,15 +113,15 @@
     </property>
     <widget class="QMenu" name="menuStack">
      <property name="title">
-      <string>Stack erzeugen</string>
+      <string>Stack</string>
      </property>
      <addaction name="actionStackLive"/>
-     <addaction name="actionStackLaden"/>
      <addaction name="actionStackAbspielen"/>
      <addaction name="actionStackAnalyse"/>
     </widget>
     <addaction name="actionSzeneLaden"/>
     <addaction name="actionSzeneAbspielen"/>
+    <addaction name="separator"/>
     <addaction name="menuStack"/>
    </widget>
    <widget class="QMenu" name="menuKamera">
@@ -94,9 +130,20 @@
     </property>
     <addaction name="actionKalibrieren"/>
     <addaction name="actionLiveKalibrieren"/>
-    <addaction name="actionLED_erkennen"/>
+   </widget>
+   <widget class="QMenu" name="menuHorizont">
+    <property name="title">
+     <string>Analyse</string>
+    </property>
+    <addaction name="actionHorizont_Labeln"/>
+    <addaction name="actionHorizont_analysieren"/>
+    <addaction name="actionSchnelle_analyse"/>
+    <addaction name="actionParameter_Analysieren"/>
+    <addaction name="separator"/>
+    <addaction name="actionObjekte_analysieren"/>
    </widget>
    <addaction name="menuTest"/>
+   <addaction name="menuHorizont"/>
    <addaction name="menuLog"/>
    <addaction name="menuKamera"/>
   </widget>
@@ -130,7 +177,7 @@
     <string>Laden</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+S</string>
+    <string>Ctrl+O</string>
    </property>
   </action>
   <action name="actionSzeneAbspielen">
@@ -154,11 +201,6 @@
     <string>Ctrl+K</string>
    </property>
   </action>
-  <action name="actionStackLaden">
-   <property name="text">
-    <string>Erzeugen</string>
-   </property>
-  </action>
   <action name="actionStackAbspielen">
    <property name="text">
     <string>Abspielen</string>
@@ -177,6 +219,37 @@
   <action name="actionLED_erkennen">
    <property name="text">
     <string>LED erkennen</string>
+   </property>
+  </action>
+  <action name="actionHorizont_Labeln">
+   <property name="text">
+    <string>Horizont Labeln</string>
+   </property>
+  </action>
+  <action name="actionHorizont_analysieren">
+   <property name="text">
+    <string>Horizont analysieren</string>
+   </property>
+  </action>
+  <action name="actionSchnelle_analyse">
+   <property name="text">
+    <string>Schnelle Analyse</string>
+   </property>
+   <property name="toolTip">
+    <string>Schnelle Analyse</string>
+   </property>
+  </action>
+  <action name="actionParameter_Analysieren">
+   <property name="text">
+    <string>Parameter Analysieren</string>
+   </property>
+   <property name="toolTip">
+    <string>Parameter Analysieren</string>
+   </property>
+  </action>
+  <action name="actionObjekte_analysieren">
+   <property name="text">
+    <string>Objekte analysieren</string>
    </property>
   </action>
  </widget>

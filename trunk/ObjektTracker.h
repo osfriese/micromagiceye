@@ -15,6 +15,9 @@
 #include "opencv2/imgproc/imgproc.hpp"
 
 #include "FrameStack.h"
+
+#include "HorizontDetector.h"
+#include "ColoredObjectDetector.h"
 #include "OpticalFlowDetector.h"
 
 using namespace cv;
@@ -27,10 +30,11 @@ public:
 	ObjektTracker(String windowName, int keep);
 	virtual ~ObjektTracker();
 
-	void addFrame(Mat frame);
+    void addFrame(Mat frame);
 	void addFrame(Mat frame, int count);
-	void addFrame(Frame frame);
-	void showFrame();
+    void showFrame();
+
+
     void showVideo();
 
 	FrameStack * getStack();
@@ -43,7 +47,17 @@ private:
 	unsigned int frameCount;
 	FileStorage fileToSave;
 	String windowName;
-	FrameStack * frameStack;
+
+    // Stack mit den Frames
+    FrameStack * frameStack;
+
+    // Detectoren
+    HorizontDetector * hDetector;
+    ColoredObjectDetector * coDetector;
+    OpticalFlowDetector * ofDetector;
+
+    // initiiren
+    void init();
 
 	Mat getFrame();
 	Mat getImage();

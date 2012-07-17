@@ -10,6 +10,18 @@
 ColoredObjectDetector::ColoredObjectDetector() {
 }
 
+ColoredObjectDetector::ColoredObjectDetector(DObject::KindOfObject o)
+{
+    setObject(DObject(o));
+    time = 1;
+}
+
+ColoredObjectDetector::ColoredObjectDetector(DObject::KindOfObject o, int t)
+{
+   setObject(DObject(o));
+   time = t;
+}
+
 ColoredObjectDetector::~ColoredObjectDetector() {
 }
 
@@ -66,14 +78,53 @@ void ColoredObjectDetector::markObject(Mat src, Mat & dsc, vector<DObject> & obj
 			DObject temp = object.clone();
 			temp.setRect(minEllipse[i]);
 			objects.push_back(temp);
-			ellipse(dsc, minEllipse[i], object.getBaseColor(), 2, 8);
+            ellipse(dsc, minEllipse[i], Scalar(155,255,255), 1, 8);
 		}
 	}
 //	o.push_back(object);
 }
 
-DObject ColoredObjectDetector::getObject(){
-	return object;
+void ColoredObjectDetector::getObjects(Frame &frame)
+{
+    vector<DObject> objects;
+    markObject(frame.getFrame(),frame.getImage(),objects);
+
+    for (int h = 0; h < objects.size(); ++h) {
+        DObject a = objects.at(h);
+        if(alreadyFound(a)){
+            ellipse(frame.getImage(), a.getRect(), a.getBaseColor(), 2, 8);
+        }
+    }
+
+
+
+    addObjects(objects);
+}
+
+void ColoredObjectDetector::addObjects(vector<DObject> &o)
+{
+    foundObjects.push_back(o);
+    if(foundObjects.size() > 2)
+        foundObjects.erase(foundObjects.begin());
+}
+
+bool ColoredObjectDetector::alreadyFound(DObject o)
+{
+    int count = 0;
+    for (int i = 0; i < foundObjects.size(); ++i) {
+        vector<DObject> a = foundObjects.at(i);
+
+        for (int j = 0; j < a.size(); ++j) {
+            DObject b = a.at(j);
+            cout << b.distance(o) << endl;
+            if(b.distance(o) < 50*time)
+                count++;
+            if(count == 2)
+                return true;
+        }
+        cout << "---" << endl;
+    }
+    return false;
 }
 
 void ColoredObjectDetector::setObject(DObject object) {
