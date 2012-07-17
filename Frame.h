@@ -9,12 +9,12 @@
 #define FRAME_H_
 
 #include "opencv2/imgproc/imgproc.hpp"
-#include "DObject.h"
-#include "ColoredObjectDetector.h"
-#include "HorizontDetector.h"
 #include "opencv2/highgui/highgui.hpp"
 #include "opencv2/video/tracking.hpp"
+
 #include "Log.h"
+#include "DObject.h"
+#include "Horizont.h"
 
 using namespace cv;
 
@@ -24,42 +24,57 @@ public:
 	Frame(Mat frame,int count);
 	virtual ~Frame();
 
-	vector<Point2f>& getFeatures();
-	vector<Point> getHorizont();
-	vector<DObject> getObjects();
+    vector<Point2f> getFeatures();
+//	vector<DObject> getObjects();
 
-	Mat getFrame();
-	Mat& getImage();
-	Mat getHorizontMask();
-	Mat getCanny();
-	Mat& getGray();
+    // Bilddaten bekommen
+    Mat getFrame() const;
+    Mat getCanny();
+    Mat& getImage();
+    Point getMean() const;
+    Log getLog() const;
+    bool hasLog();
+    Horizont getHorizont() const;
+
+    void calcFlow(Frame lastFrame);
+
+
     int getID() const;
 
-	void showFlow(Frame lastFrame);
+//	void showFlow(Frame lastFrame);
+
+    // Eigenschaften setzen
 	void setFrame(Mat frame);
 	void setID(int count);
-	void setLog(Log log);
+    void setLog(const Log log);
+    void setHorizont(Horizont h);
+    void newCanny(int a);
+    Mat& getGray();
 
 	// Überladung für FileStorage
 	void write(FileStorage& fs) const;
 	friend void write(FileStorage& fs, const std::string&, const Log& x);
 
 private:
-	Log logData;
-	int id;
+
+    // Zustandsdaten
+    int id;
+    Log logData;
+
+    // Bilddaten
 	Mat frame;
 	Mat image;
-	Mat gray;
+    Mat gray;
 	Mat canny;
-	Mat horizontMask;
-	vector<Point> horizont;
+
+    // Objekte
+    Horizont horizont;
 	vector<DObject> objects;
 	vector<Point2f> features;
+    Point meanVector;
 
+    // Private Funktionen
 	void calcCanny();
-	void detectObjects();
-	void detectHorizont();
-	void detectBoats();
 	void calcFeatures();
 };
 

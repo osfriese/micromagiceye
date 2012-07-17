@@ -27,6 +27,7 @@ public:
 
 	// Überladung für FileStorage
 	void write(FileStorage& fs) const;
+    bool empty();
 };
 
 #endif /* LOG_H_ */

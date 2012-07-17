@@ -15,18 +15,26 @@ ObjektTracker::ObjektTracker(String wN, int keep) {
 	frameCount = 0;
 //	fileToSave = FileStorage(save.append(".xml"), FileStorage::WRITE);
 //	fileToSave << "VideoFile" << wN;
+    init();
 }
 
 ObjektTracker::ObjektTracker() {
 }
 
-ObjektTracker::~ObjektTracker() {
-	fileToSave.release();
+void ObjektTracker::init()
+{
+    hDetector = new HorizontDetector(1, 180, 100);
+//    coDetector = new coDetector();
+//    ofDetector = new ofDetector();
 }
 
-void ObjektTracker::addFrame(Mat frame) {
-	frameCount++;
-	frameStack->addFrame(frame, frameCount);
+ObjektTracker::~ObjektTracker() {
+    fileToSave.release();
+}
+
+void ObjektTracker::addFrame(Mat frame)
+{
+    addFrame(frame, frameCount+1);
 }
 
 void ObjektTracker::addFrame(Mat frame, int count){
@@ -34,15 +42,18 @@ void ObjektTracker::addFrame(Mat frame, int count){
 	frameStack->addFrame(frame, count);
 }
 
-void ObjektTracker::addFrame(Frame frame) {
-	frameCount++;
-	frameStack->addFrame(frame, frameCount);
-}
-
 void ObjektTracker::showFrame() {
 	if (frameStack->size() > 2) {
+        if(frameStack->size() > 1){
+            Horizont a = frameStack->getLastFrame().getHorizont();
+            hDetector->getStableHorizont(frameStack->getActualFrame(),a);
+        }else{
+            hDetector->getStableHorizont(frameStack->getActualFrame());
+        }
+
+
 //        frameStack->getActualFrame().showFlow(frameStack->getLastFrame());
-		imshow(windowName, getImage());
+        imshow(windowName, getImage());
 
 //		fileToSave << "Frame" << frameStack->getActualFrame();
 		frameStack->moveFrames();
@@ -51,7 +62,7 @@ void ObjektTracker::showFrame() {
 
 void ObjektTracker::showVideo()
 {
-    for (int i = 0; i < frameStack->size(); ++i) {
+    for (int i = frameStack->size()-1; i > 0; i--) {
         imshow(windowName, frameStack->getFrame(i).getImage());
         waitKey(1000/30);
     }

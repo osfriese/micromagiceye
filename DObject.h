@@ -30,6 +30,7 @@ public:
 	RotatedRect getRect();
 	Size2f getSize();
 	DObject clone();
+    double getDurchmesser();
 
 	void setBaseColor(KindOfObject obj);
 	void setHsvRange(KindOfObject obj);
@@ -37,6 +38,8 @@ public:
 	void setCenter(Point2f center);
 	void setRect(RotatedRect rect);
 	void setSize(Size2f size);
+
+    double distance(DObject o);
 
 	// Ueberladung für FileStorage
 	void write(FileStorage& fs) const;
@@ -48,10 +51,10 @@ private:
 	Scalar hsvRangeMax;
 	Scalar baseColor;
 
-	Point2f center;
-	float angle;
-	Size2f size;
-	RotatedRect rect;
+    Point2f center;
+    float angle;
+    Size2f size;
+    RotatedRect rect;
 };
 
 #endif /* DOBJECT_H_ */

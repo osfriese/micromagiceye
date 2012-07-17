@@ -24,8 +24,8 @@ void ReadLog::connectWithFrames(FrameStack *stack, int versatz)
     while((logdata[logIterator].milli - versatz) < 0)
         logIterator++;
 
-    for (int stackIterator = 0; stackIterator < size; stackIterator++) {
-        if((logdata[logIterator].milli - versatz) > stack->getFrame(stackIterator).getID())
+    for (int stackIterator = size -1; stackIterator > 0; stackIterator--) {
+        if((logdata[logIterator].milli - versatz) < stack->getFrame(stackIterator).getID())
             logIterator++;
         stack->getFrame(stackIterator).setLog(logdata[logIterator]);
         cout << ".";

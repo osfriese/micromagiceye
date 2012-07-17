@@ -3,7 +3,7 @@
 LEDDetector::LEDDetector(String file)
 {
     String save = file;
-    save.append(".xml");
+    save.append(".blink");
     LEDDetector(file, save);
 }
 
@@ -34,8 +34,10 @@ void LEDDetector::go()
     meanLED1 = mean(LED1)[2];
 
     ready = true;
-    fstream ausgabe;
+    ofstream ausgabe;
     ausgabe.open(saveTo.c_str());
+    if(!ausgabe.is_open())
+        cout << "Datei konnte nicht geöffnet werden..." << endl;
 
     for (;;) {
         cap >> frame;

@@ -39,8 +39,6 @@ private slots:
 
     void on_actionKalibrieren_triggered();
 
-    void on_actionStackLaden_triggered();
-
     void on_actionStackAnalyse_triggered();
 
     void on_actionLogBind_triggered();
@@ -53,10 +51,21 @@ private slots:
 
     void on_actionStackAbspielen_triggered();
 
+    void on_actionHorizont_Labeln_triggered();
+
+    void on_actionHorizont_analysieren_triggered();
+
+    void on_actionSchnelle_analyse_triggered();
+
+    void on_actionObjekte_analysieren_triggered();
+
+    void on_actionParameter_Analysieren_triggered();
+
 private:
     Ui::MicroMagicEye *ui;
     string logdatei;
     string videofile;
+    FrameStack myStack;
     FrameStack * stack;
     ObjektTracker tracker;
 

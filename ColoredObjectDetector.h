@@ -12,6 +12,11 @@
 
 #include "opencv2/imgproc/imgproc.hpp"
 #include "DObject.h"
+#include "Frame.h"
+#include <iostream>
+
+using std::cout;
+using std::endl;
 
 using namespace cv;
 
@@ -19,6 +24,8 @@ using namespace cv;
 class ColoredObjectDetector {
 public:
 	ColoredObjectDetector();
+    ColoredObjectDetector(DObject::KindOfObject o);
+    ColoredObjectDetector(DObject::KindOfObject o, int t);
 	ColoredObjectDetector(Mat src, Mat &dsc, DObject::KindOfObject koo, vector<DObject> &objects);
 	ColoredObjectDetector(Mat src, Mat &dsc, DObject::KindOfObject koo, vector<DObject> &objects, Mat mask);
 	virtual ~ColoredObjectDetector();
@@ -28,12 +35,19 @@ public:
     void setObject(DObject object);
 
     void markObject(Mat src, Mat &dsc, vector<DObject> & objects);
-    DObject getObject();
+    void getObjects(Frame &frame);
+
+//    DObject getObject();
 
 private:
     DObject object;
+    vector< vector<DObject> > foundObjects;
     Scalar min;
     Scalar max;
+    int time;
+
+    void addObjects(vector<DObject> &o);
+    bool alreadyFound(DObject o);
 
 
 };
