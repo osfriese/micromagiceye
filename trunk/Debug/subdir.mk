@@ -10,7 +10,9 @@ CPP_SRCS += \
 ../Frame.cpp \
 ../FrameAnalyser.cpp \
 ../FrameStack.cpp \
+../Horizont.cpp \
 ../HorizontDetector.cpp \
+../LEDdetector.cpp \
 ../Log.cpp \
 ../ObjektTracker.cpp \
 ../OpticalFlowDetector.cpp \
@@ -26,7 +28,9 @@ OBJS += \
 ./Frame.o \
 ./FrameAnalyser.o \
 ./FrameStack.o \
+./Horizont.o \
 ./HorizontDetector.o \
+./LEDdetector.o \
 ./Log.o \
 ./ObjektTracker.o \
 ./OpticalFlowDetector.o \
@@ -42,7 +46,9 @@ CPP_DEPS += \
 ./Frame.d \
 ./FrameAnalyser.d \
 ./FrameStack.d \
+./Horizont.d \
 ./HorizontDetector.d \
+./LEDdetector.d \
 ./Log.d \
 ./ObjektTracker.d \
 ./OpticalFlowDetector.d \

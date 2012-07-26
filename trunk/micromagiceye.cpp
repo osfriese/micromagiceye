@@ -41,7 +41,10 @@ void MicroMagicEye::on_actionLogBind_triggered()
 void MicroMagicEye::on_actionSzeneLaden_triggered()
 {
    QString video = QFileDialog::getOpenFileName(this,
-         tr("Video öffnen"), "/home/osfriese/Dokumente/Bachelorarbeit/Videos", tr("Video Dateien (*.avi)"));
+         tr("Video öffnen"), "/home/osfriese/Dokumente/Bachelorarbeit/Videos/Szenarien/", tr("Video Dateien (*.avi)"));
+
+   QFileInfo info1(video);
+   path = info1.canonicalPath() + "/";
    videofile = video.toStdString();
    ui->lblVideo->setText(video.split("/").back());
    ui->lblLog->setText("");
@@ -200,7 +203,7 @@ void MicroMagicEye::on_actionLED_erkennen_triggered()
 void MicroMagicEye::on_actionHorizont_Labeln_triggered()
 {
     QString horizont = QFileDialog::getSaveFileName(this,
-                                                    tr("Horizontdatei speichern"), videofile.c_str(), tr("Horizont Dateien (*.xml *.yml)"));
+                                                    tr("Horizontdatei speichern"), path + "horizont.yml", tr("Horizont Dateien (*.xml *.yml)"));
 
     if(horizont != ""){
         FrameAnalyser labelMe(stack);
@@ -213,9 +216,9 @@ void MicroMagicEye::on_actionHorizont_Labeln_triggered()
 void MicroMagicEye::on_actionHorizont_analysieren_triggered()
 {
     QString label = QFileDialog::getOpenFileName(this,
-                                                 tr("Horizont Label öffnen"),videofile.c_str(), tr("Horizont Label (*.xml *.yml)"));
+                                                 tr("Horizont Label öffnen"),path + "horizont.yml", tr("Horizont Label (*.xml *.yml)"));
     QString horizont = QFileDialog::getSaveFileName(this,
-                                                    tr("Horizont Analyse speichern"), videofile.c_str(), tr("Horizont Analyse Dateien (*.*)"));
+                                                    tr("Horizont Analyse speichern"), path + "analyse.txt", tr("Horizont Analyse Dateien (*.*)"));
 
     if(horizont != "" && label !=""){
         FrameAnalyser labelMe(stack);
@@ -226,9 +229,9 @@ void MicroMagicEye::on_actionHorizont_analysieren_triggered()
 void MicroMagicEye::on_actionSchnelle_analyse_triggered()
 {
     QString label = QFileDialog::getOpenFileName(this,
-                                                 tr("Horizont Label öffnen"),videofile.c_str(), tr("Horizont Label (*.xml *.yml)"));
+                                                 tr("Horizont Label öffnen"),path + "horizont.yml", tr("Horizont Label (*.xml *.yml)"));
     QString horizont = QFileDialog::getSaveFileName(this,
-                                                    tr("Horizont Analyse speichern"), videofile.c_str(), tr("Horizont Analyse Dateien (*.*)"));
+                                                    tr("Horizont Analyse speichern"), path + "analyse.txt", tr("Horizont Analyse Dateien (*.*)"));
 
     if(horizont != "" && label !=""){
         FrameAnalyser labelMe(stack);
@@ -239,7 +242,7 @@ void MicroMagicEye::on_actionSchnelle_analyse_triggered()
 void MicroMagicEye::on_actionObjekte_analysieren_triggered()
 {
     QString object = QFileDialog::getSaveFileName(this,
-                                                  tr("Object Analyse speichern"), videofile.c_str(), tr("Object Analyse (*.*)"));
+                                                  tr("Object Analyse speichern"), path + "bojen.txt", tr("Object Analyse (*.*)"));
 
     if(object != ""){
         FrameAnalyser objects(stack);
@@ -250,9 +253,9 @@ void MicroMagicEye::on_actionObjekte_analysieren_triggered()
 void MicroMagicEye::on_actionParameter_Analysieren_triggered()
 {
     QString label = QFileDialog::getOpenFileName(this,
-                                                 tr("Horizont Label öffnen"),videofile.c_str(), tr("Horizont Label (*.xml *.yml)"));
+                                                 tr("Horizont Label öffnen"),path + "horizont.yml", tr("Horizont Label (*.xml *.yml)"));
     QString horizont = QFileDialog::getSaveFileName(this,
-                                                    tr("Horizont Analyse speichern"), videofile.c_str(), tr("Horizont Analyse Dateien (*.*)"));
+                                                    tr("Horizont Analyse speichern"), path + "param.txt", tr("Horizont Analyse Dateien (*.*)"));
 
     if(horizont != "" && label !=""){
         FrameAnalyser labelMe(stack);

@@ -127,7 +127,7 @@ void FrameAnalyser::labelHorizont(Frame frame)
         Mat copy = frame.getFrame().clone();
         if(hz.size() > 0) {
             a = hz[i];
-            line(copy, a.p1, a.p2, Scalar(0, 255, 0), 1, 8);
+            line(copy, a.p1, a.p2, Scalar(0, 255, 255), 2, 8);
         }
 
         imshow("Horizont", copy);
@@ -205,7 +205,7 @@ void FrameAnalyser::analyseHorizont(string filename, string label, bool print)
             Horizont a = myStack->getFrame(var+1).getHorizont();
             hDetector.getStableHorizont(myStack->getFrame(var),a);
 
-//            myStack->getFrame(var).calcFlow(myStack->getFrame(var+1));
+            myStack->getFrame(var).calcFlow(myStack->getFrame(var+1));
         }else{
             hDetector.getStableHorizont(myStack->getFrame(var));
         }
@@ -298,7 +298,7 @@ void FrameAnalyser::analyseHorizontParam(string filename, string label)
 //            for(int numberOfVarianzHorizonts = 2; numberOfVarianzHorizonts < 20; numberOfVarianzHorizonts += 2) {
 
     for(int numberOfAddedHorizonts = 1; numberOfAddedHorizonts <= 8; numberOfAddedHorizonts += 1){
-        for(int numberOfKeepedHorizonts = 2; numberOfKeepedHorizonts <= 10 * numberOfAddedHorizonts ; numberOfKeepedHorizonts += 2 * numberOfAddedHorizonts){
+        for(int numberOfKeepedHorizonts = 2; numberOfKeepedHorizonts <= 10 * numberOfAddedHorizonts ; numberOfKeepedHorizonts += numberOfAddedHorizonts){
             for(int numberOfVarianzHorizonts = 2; numberOfVarianzHorizonts < 6; numberOfVarianzHorizonts += 1) {
 
                 hDetector.setNumberOfAddedHorizonts(numberOfAddedHorizonts);

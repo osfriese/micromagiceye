@@ -37,8 +37,8 @@ HorizontDetector::~HorizontDetector() {
 }
 
 void HorizontDetector::init(){
-    numberOfKeepedHorizonts = 50;
-    numberOfAddedHorizonts = 3;
+    numberOfKeepedHorizonts = 60;
+    numberOfAddedHorizonts = 6;
     numberOfVarianzHorizonts = 5;
 }
 

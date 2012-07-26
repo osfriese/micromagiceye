@@ -74,7 +74,7 @@ DObject DObject::clone() {
 
 double DObject::getDurchmesser()
 {
-    return max(getSize().height, getSize().width);
+    return min(getSize().height, getSize().width);
 }
 
 String DObject::getString() {
