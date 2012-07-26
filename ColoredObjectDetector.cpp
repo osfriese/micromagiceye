@@ -113,11 +113,12 @@ bool ColoredObjectDetector::alreadyFound(DObject o)
     int count = 0;
     for (int i = 0; i < foundObjects.size(); ++i) {
         vector<DObject> a = foundObjects.at(i);
+//        cout << a.distance(o) << ":" << o.getDurchmesser() << endl;
 
         for (int j = 0; j < a.size(); ++j) {
             DObject b = a.at(j);
-            cout << b.distance(o) << endl;
-            if(b.distance(o) < 50*time)
+            cout << count << ": " << b.distance(o) << ":" << o.getDurchmesser() << endl;
+            if(b.distance(o) < 50*time || o.getDurchmesser() > 50)
                 count++;
             if(count == 2)
                 return true;

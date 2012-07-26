@@ -14,6 +14,7 @@
 #include <QFileDialog>
 #include <QMainWindow>
 #include <QInputDialog>
+ #include <QFileInfo>
 
 using namespace std;
 using namespace cv;
@@ -65,6 +66,7 @@ private:
     Ui::MicroMagicEye *ui;
     string logdatei;
     string videofile;
+    QString path;
     FrameStack myStack;
     FrameStack * stack;
     ObjektTracker tracker;
