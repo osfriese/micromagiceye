@@ -1,0 +1,1 @@
+Im Rahmen meiner Bachelorarbeit entwickeltes Programm zur Objekterkennung und Verfolgung für Segelroboter der Klasse Micro Magic.
